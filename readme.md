@@ -21,7 +21,7 @@ Takes two arrays of vertex IDs, each spanning a planar polygon and returns:
 
 - `false` if the given polygons share no vertices
 - `null` if there would be more than one resulting simple polygon (if the two given polygons share either exactly one vertex, which would result in two polygons *or* multiple egdes that are not connected, which would result in a polygon with a "hole")
-- a list of vertex IDs forming the merged polygon, otherwise
+- a list of vertex IDs forming the merged polygon
 
 ```js
 const mergePolygons = require('merge-simple-polygons')
