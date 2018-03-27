@@ -4,6 +4,7 @@ const intersection = require('lodash.intersection')
 const uniq = require('lodash.uniq')
 const range = require('lodash.range')
 const equal = require('lodash.isequal')
+const min = require('lodash.min')
 
 const throwIfNotSimplePolygon = (polygon) => {
     if (polygon.length < 3) throw new Error('input must be polygon: cannot have less than 3 vertices')
@@ -37,6 +38,7 @@ const merge = (a, b) => {
     throwIfNotSimplePolygon(b)
     // shared points in order of appearance in the first polygon
     const sharedPoints = intersection(a, b)
+    if (sharedPoints.length >= min([a.length, b.length])) throw new Error('polygons must have non-shared vertices')
     if (sharedPoints.length === 0) return false
     if (sharedPoints.length === 1) return null
 
