@@ -12,13 +12,13 @@ tape('merge-simple-polygons', (t) => {
 	t.ok(equal(merge(first, second).length, merge(second, first).length), 'reverse length')
 
 	const third = ['c', 'd', 'g', 'h', 'b']
-	t.ok(equal(merge(third, first), ['d', 'g', 'h', 'b', 'a', 'f', 'e']), 'third x first')
+	t.ok(equal(merge(third, first), ['d', 'e', 'f', 'a', 'b', 'h', 'g']), 'third x first')
 	t.ok(equal(merge(third, first).length, merge(first, third).length), 'reverse length')
 
 	const fourth = ['a', 'b', 'c']
 
 	const fifth = ['a', 'c', 'd', 'e']
-	t.ok(equal(merge(fourth, fifth), ['c', 'b', 'a', 'e', 'd']), 'fourth x fifth')
+	t.ok(equal(merge(fourth, fifth), ['c', 'd', 'e', 'a', 'b']), 'fourth x fifth')
 	t.ok(equal(merge(fourth, fifth).length, merge(fifth, fourth).length), 'reverse length')
 
 	const sixth = ['a', 'c', 'f']
@@ -36,7 +36,7 @@ tape('merge-simple-polygons', (t) => {
 
 	const tenth = ['a', 'b', 'c', 'd', 'e']
 	const eleventh = ['e', 'a', 'g', 'h', 'i', 'd']
-	t.ok(equal(merge(tenth, eleventh), ['a', 'b', 'c', 'd', 'i', 'h', 'g']), 'tenth x eleventh')
+	t.ok(equal(merge(tenth, eleventh), ['a', 'g', 'h', 'i', 'd', 'c', 'b']), 'tenth x eleventh')
 	t.ok(equal(merge(tenth, eleventh).length, merge(eleventh, tenth).length), 'reverse length')
 
 	const twelveth = ['a', 'b', 'c']
@@ -46,6 +46,11 @@ tape('merge-simple-polygons', (t) => {
 	const fourteenth = ['a', 'b', 'c', 'd', 'e']
 	const fifteenth = ['a', 'b', 'f', 'e', 'd', 'g']
 	t.ok(merge(fourteenth, fifteenth) === null, 'fourteenth x fifteenth')
+
+	const sixteenth = [1, 2, 3, 4, 5, 6]
+	const seventeenth = [3, 1, 2]
+	t.ok(equal(merge(sixteenth, seventeenth), [3, 4, 5, 6, 1]), 'sixteenth x seventeenth')
+	t.ok(equal(merge(sixteenth, seventeenth), merge(seventeenth, sixteenth)), 'reverse')
 
 	t.end()
 })

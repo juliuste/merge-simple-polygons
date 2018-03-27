@@ -4,7 +4,6 @@ const intersection = require('lodash.intersection')
 const uniq = require('lodash.uniq')
 const range = require('lodash.range')
 const equal = require('lodash.isequal')
-const min = require('lodash.min')
 
 const throwIfNotSimplePolygon = (polygon) => {
     if (polygon.length < 3) throw new Error('input must be polygon: cannot have less than 3 vertices')
@@ -36,16 +35,26 @@ const areAdjacentEntries = (entries, array) => {
 const merge = (a, b) => {
     throwIfNotSimplePolygon(a)
     throwIfNotSimplePolygon(b)
+
+    // swap order if shorter polygon comes first (important for shared point ordering, which is taken from A)
+    if (a.length < b.length) {
+        const c = b
+        b = a
+        a = c
+    }
+
     // shared points in order of appearance in the first polygon
     const sharedPoints = intersection(a, b)
-    if (sharedPoints.length >= min([a.length, b.length])) throw new Error('polygons must have non-shared vertices')
     if (sharedPoints.length === 0) return false
     if (sharedPoints.length === 1) return null
+    if (sharedPoints.length === a.length && a.length === b.length) throw new Error('polygons must have non-shared vertices')
 
     const adjacentA = areAdjacentEntries(sharedPoints, a)
     if (!adjacentA) return null
+
     const directionA = adjacentA.direction
     const orderedPoints = adjacentA.orderedEntries
+
 
     const adjacentB = areAdjacentEntries(sharedPoints, b)
     if (!adjacentB) return null
