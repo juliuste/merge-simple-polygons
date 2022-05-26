@@ -20,25 +20,33 @@
 	"homepage": "https://github.com/juliuste/merge-simple-polygons",
 	"repository": "juliuste/merge-simple-polygons",
 	"bugs": "https://github.com/juliuste/merge-simple-polygons/issues",
-	"main": "./index.js",
+	"main": "src/index.js",
+	"type": "module",
 	"files": [
-		"index.js"
+		"src/*",
+		"!src/*.test.js"
 	],
 	"dependencies": {
-		"lodash.intersection": "^4.4.0",
-		"lodash.isequal": "^4.5.0",
-		"lodash.range": "^3.2.0",
-		"lodash.uniq": "^4.5.0"
+		"lodash": "^4.17.21"
 	},
 	"devDependencies": {
-		"tape": "^4.9.0"
+		"ava": "^4.2.0",
+		"depcheck": "^1.4.3",
+		"eslint": "^8.16.0",
+		"eslint-config-standard": "^17.0.0",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-n": "^15.2.0",
+		"eslint-plugin-promise": "^6.0.0"
 	},
 	"scripts": {
-		"test": "node test.js",
-		"prepare": "npm test"
+		"test": "npm run lint && npm run check-deps && ava",
+		"check-deps": "depcheck",
+		"lint": "eslint src",
+		"fix": "npm run lint -- --fix",
+		"prepublishOnly": "npm test"
 	},
 	"engines": {
-		"node": ">=8"
+		"node": ">=14"
 	},
 	"license": "ISC"
 }
