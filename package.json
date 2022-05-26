@@ -1,7 +1,7 @@
 {
 	"name": "merge-simple-polygons",
 	"description": "Merge two (adjacent) simple polygons into one.",
-	"version": "1.0.2",
+	"version": "2.0.0",
 	"keywords": [
 		"merge",
 		"combine",
